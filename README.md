@@ -10,7 +10,7 @@ The app itself is basic and not "pretty". It consists of 2 pages. The first page
 - Includes services, directives, Angular UI Bootstrap modal, "fake" server call using promises, a loading bar displays during calls to the server.
 - Uses AngularJS, Angular UI Router, Angular UI Bootstrap, Angular Loading Bar, Grunt, Browserify, ngAnnotate, html2js
 
-# TODO
+## TODO
 - Add watchify and rewrite the "delta" grunt task
 - Add unit tests to show how to integrate test with Browserify
 - Add styling to make the app a little more "pretty"

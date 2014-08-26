@@ -12,7 +12,7 @@ The app itself is basic and not "pretty". It consists of 2 pages. The first page
 
 ## TODO
 - Add watchify and rewrite the "delta" grunt task
-- Add unit tests to show how to integrate test with Browserify
+- Add unit tests to show how to integrate tests with Browserify
 - Add styling to make the app a little more "pretty"
 - Remove Bower dependency and use npm for all package management
 

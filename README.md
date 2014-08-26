@@ -10,11 +10,17 @@ The app itself is basic and not "pretty". It consists of 2 pages. The first page
 - Includes services, directives, Angular UI Bootstrap modal, "fake" server call using promises, a loading bar displays during calls to the server.
 - Uses AngularJS, Angular UI Router, Angular UI Bootstrap, Angular Loading Bar, Grunt, Browserify, ngAnnotate, html2js
 
+# TODO
+- Add watchify and rewrite the "delta" grunt task
+- Add unit tests to show how to integrate test with Browserify
+- Add styling to make the app a little more "pretty"
+- Remove Bower dependency and use npm for all package management
 
 ##Instructions for Setting up and Building This Project
 Note: You already have installed Node.js, a Git client (needed by Bower), Bower, and Grunt cli
 
-- Open a Node command prompt in the root directory of this project
+- Download/clone this repo.
+- Open a Node command prompt in the root directory of the project
 - type the following command (without quotes) 'npm install'
    Note: sometimes you might see errors during the install process. Try running the command again. 
 - type the follow command (without quote) 'bower install'

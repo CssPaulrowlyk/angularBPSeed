@@ -1,0 +1,1 @@
+The pages directory is used to store "top-level" views for the app.

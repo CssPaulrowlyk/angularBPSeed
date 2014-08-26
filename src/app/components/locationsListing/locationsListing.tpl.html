@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3>Locations List</h3>
+            </div>
+        </div>
+
+        <div class="row" ng-cloak>
+            <div class="col-md-12" ng-repeat="location in locationsListingCtrl.locations">
+                {{ location.city }}, {{ location.state }} <br>
+                <button ng-click="locationsListingCtrl.viewLocationDetails(location.id)">View Details</button>
+            </div>
+        </div>
+    </div>
+</div>

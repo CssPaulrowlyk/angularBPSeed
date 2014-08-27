@@ -11,7 +11,8 @@ angular.module('angularBPSeed', [
     'angular-loading-bar',
     require('./pages/main/mainCtrl').name,
     require('./pages/locationDetails/locationDetailsCtrl').name,
-    require('./services/locationLookupService').name
+    require('./services/locationLookupService').name,
+    require('./components/appMessages/appMessages').name
 ]).config(['$stateProvider', '$urlRouterProvider', 'cfpLoadingBarProvider',
     function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider) {
         // set loading bar preferences
@@ -49,6 +50,15 @@ angular.module('angularBPSeed', [
             }
         });
     }])
+    .constant( 'CONSTANTS', {
+        // Use constants instead of using "magic strings". In other words, define a key here, so you don't have to
+        // duplicate string the same string value(s) all over your app. For example, to use this, inject it into your
+        // module, then refer to it as CONSTANTS.APP_MESSAGE. This is better than repeating the string "APP_MESSAGE"
+        // in multiple files. Using a constant, if you want to change the key value, you just change it here in one place
+        // whereas if you use a string like "APP_MESSAGE" and you change its value, you have to search your app for
+        // every instance of that string.
+        'APP_MESSAGE': 'APP_MESSAGE'
+    })
     .run(function ($rootScope, cfpLoadingBar) {
         $rootScope.$on("$stateChangeStart", function () {
             // show the loading bar when we start to change to a new page. This is mostly for states that
@@ -59,7 +69,10 @@ angular.module('angularBPSeed', [
             //hide the loading bar
             cfpLoadingBar.complete();
         });
-        //TODO: add code to hide the bar is the stateChange fails due to an error in resolve()?
+        $rootScope.$on("$stateChangeError", function () {
+            //hide the loading bar
+            cfpLoadingBar.complete();
+        });
     })
 ;
 

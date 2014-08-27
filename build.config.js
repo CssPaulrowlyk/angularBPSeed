@@ -68,8 +68,8 @@ module.exports = {
             'vendor/angular-loading-bar/build/loading-bar.min.js'
         ],
         css: [
-            'node_modules/bootstrap/dist/js/bootstrap.min.js',
-            'node_modules/angular-loading-bar/build/loading-bar.min.css'
+            'vendor/bootstrap/dist/js/bootstrap.min.js',
+            'vendor/angular-loading-bar/build/loading-bar.min.css'
         ],
         assets: [
         ]

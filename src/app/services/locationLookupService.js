@@ -6,7 +6,7 @@
  * @constructor
  * @ngInject
  */
-function LocationLookupService($q, $timeout) {
+function LocationLookupService($q, $timeout, $rootScope, CONSTANTS) {
     var self = this,
         locations = [
             {
@@ -27,6 +27,13 @@ function LocationLookupService($q, $timeout) {
                 id: '3',
                 city: 'Asheville',
                 state: 'NC',
+                extraField: 'this is an extra field for the details page',
+                anotherField: "this is another field for the details page"
+            },
+            {
+                id: '4',
+                city: 'Error',
+                state: 'ZZ',
                 extraField: 'this is an extra field for the details page',
                 anotherField: "this is another field for the details page"
             }
@@ -53,19 +60,31 @@ function LocationLookupService($q, $timeout) {
      */
     self.getLocationById = function (locId) {
         var deferred = $q.defer(),
+            errorMsg,
             loc;
+        // simulate an error so we can reject the promise and show an error message within the app, using the
+        // appMessages directive
+        if(locId === '4') {
+            errorMsg = {
+                type: 'warning',
+                message: "Error looking up location!"
+            };
+            $rootScope.$emit(CONSTANTS.APP_MESSAGE, errorMsg);
+            deferred.reject(null);
 
-        // you could use angular.forEach instead of lodash...
-        _.forEach(locations, function(location) {
-            if(location.id === locId) {
-                loc = location;
-                // we should short circuit the loop here, but not going to bother for this demo.
-            }
-        });
+        } else {
+            // you could use angular.forEach instead of lodash...
+            _.forEach(locations, function(location) {
+                if(location.id === locId) {
+                    loc = location;
+                    // we should short circuit the loop here, but not going to bother for this demo.
+                }
+            });
 
-        $timeout(function() {
-            deferred.resolve(loc);
-        }, 2000); // make this longer than 1000 so the loading bar will display
+            $timeout(function() {
+                deferred.resolve(loc);
+            }, 2000); // make this longer than 1000 so the loading bar will display
+        }
 
         return deferred.promise;
     };

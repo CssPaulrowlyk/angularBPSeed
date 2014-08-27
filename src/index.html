@@ -24,6 +24,11 @@
 </head>
 <body>
 
+<!--
+    The app-messages directive is a place to show app-wide messages. Because it is included above the ui-view, the
+    app-message directive is actually visibly one every view in our app.
+-->
+<div app-messages></div>
 <div class="container" ui-view="page"></div>
 
 </body>

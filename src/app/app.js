@@ -53,11 +53,11 @@ angular.module('angularBPSeed', [
     .constant( 'CONSTANTS', {
         // Use constants instead of using "magic strings". In other words, define a key here, so you don't have to
         // duplicate string the same string value(s) all over your app. For example, to use this, inject it into your
-        // module, then refer to it as CONSTANTS.APP_MESSAGE. This is better than repeating the string "APP_MESSAGE"
+        // module, then refer to it as CONSTANTS.MY_KEY. This is better than repeating the string "myValue"
         // in multiple files. Using a constant, if you want to change the key value, you just change it here in one place
-        // whereas if you use a string like "APP_MESSAGE" and you change its value, you have to search your app for
+        // whereas if you use a string like "myValue" and you change its value, you have to search your app for
         // every instance of that string.
-        'APP_MESSAGE': 'APP_MESSAGE'
+        'MY_KEY': 'myValue'
     })
     .run(function ($rootScope, cfpLoadingBar) {
         $rootScope.$on("$stateChangeStart", function () {

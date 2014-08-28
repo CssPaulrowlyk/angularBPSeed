@@ -5,29 +5,22 @@
  * @ngInject
  */
 
-function AppMessagesCtrl($rootScope, CONSTANTS) {
+function AppMessagesCtrl(appMessagesService) {
     var self = this;
 
-    self.alerts = [];
-
-    $rootScope.$on(CONSTANTS.APP_MESSAGE, function(event, message) {
-        self.alerts.push({
-                type: message.type,
-                text: message.text
-            }
-        );
-    });
+    self.alerts = appMessagesService.getMessages();
 
     /**
      * closes the alert and removes it from the list of alerts.
      * @param alertIndex
      */
     self.closeAlert = function (alertIndex) {
-        self.alerts.splice(alertIndex, 1);
+        appMessagesService.removeMessage(alertIndex);
     };
 }
 
 module.exports = angular
     .module('angularBPSeed.components.appMessages.appMessagesCtrl', [
+        require('./appMessagesService').name
     ])
     .controller('AppMessagesCtrl', AppMessagesCtrl);

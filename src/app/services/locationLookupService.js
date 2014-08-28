@@ -64,7 +64,7 @@ function LocationLookupService($q, $timeout, appMessagesService) {
         // simulate an error so we can reject the promise and show an error message within the app, using the
         // appMessages directive
         if(locId === '4') {
-            appMessagesService.sendMessage({
+            appMessagesService.addMessage({
                 type: 'warning',
                 text: "Error looking up location with locId: " + locId
             });

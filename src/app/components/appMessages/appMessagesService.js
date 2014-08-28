@@ -5,14 +5,25 @@
  * @ngInject
  */
 
-function AppMessagesService($rootScope, CONSTANTS) {
+function AppMessagesService() {
     var self = this;
 
-    self.sendMessage = function (message) {
-        $rootScope.$broadcast(CONSTANTS.APP_MESSAGE, {
-            type: message.type,
-            text: message.text
-        });
+    self.messages = [];
+
+    self.addMessage = function (message) {
+        self.messages.push({
+                type: message.type,
+                text: message.text
+            }
+        );
+    };
+
+    self.getMessages = function() {
+        return self.messages;
+    };
+
+    self.removeMessage = function(messageIndex) {
+        self.messages.splice(messageIndex, 1);
     };
 }
 

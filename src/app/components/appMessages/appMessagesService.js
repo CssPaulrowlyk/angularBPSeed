@@ -6,12 +6,11 @@
  */
 
 function AppMessagesService() {
-    var self = this;
-
-    self.messages = [];
+    var self = this,
+        messages = [];
 
     self.addMessage = function (message) {
-        self.messages.push({
+        messages.push({
                 type: message.type,
                 text: message.text
             }
@@ -19,11 +18,11 @@ function AppMessagesService() {
     };
 
     self.getMessages = function() {
-        return self.messages;
+        return messages;
     };
 
     self.removeMessage = function(messageIndex) {
-        self.messages.splice(messageIndex, 1);
+        messages.splice(messageIndex, 1);
     };
 }
 

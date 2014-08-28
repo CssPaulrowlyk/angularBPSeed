@@ -13,7 +13,7 @@ function AppMessagesCtrl($rootScope, CONSTANTS) {
     $rootScope.$on(CONSTANTS.APP_MESSAGE, function(event, message) {
         self.alerts.push({
                 type: message.type,
-                msg: message.message
+                text: message.text
             }
         );
     });

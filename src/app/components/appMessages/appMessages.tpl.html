@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <!-- the alert directive is from Angular UI Bootstrap -->
         <alert ng-repeat="alert in appMessagesCtrl.alerts" type="alert.type"
-               close="appMessagesCtrl.closeAlert($index)">{{alert.msg}}
+               close="appMessagesCtrl.closeAlert($index)">{{alert.text}}
         </alert>
     </div>
 </div>

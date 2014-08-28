@@ -6,7 +6,7 @@
  * @constructor
  * @ngInject
  */
-function LocationLookupService($q, $timeout, $rootScope, CONSTANTS) {
+function LocationLookupService($q, $timeout, appMessagesService) {
     var self = this,
         locations = [
             {
@@ -60,16 +60,14 @@ function LocationLookupService($q, $timeout, $rootScope, CONSTANTS) {
      */
     self.getLocationById = function (locId) {
         var deferred = $q.defer(),
-            errorMsg,
             loc;
         // simulate an error so we can reject the promise and show an error message within the app, using the
         // appMessages directive
         if(locId === '4') {
-            errorMsg = {
+            appMessagesService.sendMessage({
                 type: 'warning',
-                message: "Error looking up location!"
-            };
-            $rootScope.$broadcast(CONSTANTS.APP_MESSAGE, errorMsg);
+                text: "Error looking up location with locId: " + locId
+            });
             deferred.reject(null);
 
         } else {
@@ -91,6 +89,8 @@ function LocationLookupService($q, $timeout, $rootScope, CONSTANTS) {
 
 }
 module.exports = angular
-    .module('angularBPSeed.services.locationLookupService', [])
+    .module('angularBPSeed.services.locationLookupService', [
+        require('./../components/appMessages/appMessagesService').name
+    ])
     .service('locationLookupService', LocationLookupService);
 

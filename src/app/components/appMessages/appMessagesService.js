@@ -9,7 +9,7 @@ function AppMessagesService($rootScope, CONSTANTS) {
     var self = this;
 
     self.sendMessage = function (message) {
-        $rootScope.$broadcast(CONSTANTS.APP_MESSAGE, {
+        $rootScope.$emit(CONSTANTS.APP_MESSAGE, {
             type: message.type,
             text: message.text
         });

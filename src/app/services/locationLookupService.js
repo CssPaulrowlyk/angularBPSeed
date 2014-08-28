@@ -69,7 +69,7 @@ function LocationLookupService($q, $timeout, $rootScope, CONSTANTS) {
                 type: 'warning',
                 message: "Error looking up location!"
             };
-            $rootScope.$emit(CONSTANTS.APP_MESSAGE, errorMsg);
+            $rootScope.$broadcast(CONSTANTS.APP_MESSAGE, errorMsg);
             deferred.reject(null);
 
         } else {

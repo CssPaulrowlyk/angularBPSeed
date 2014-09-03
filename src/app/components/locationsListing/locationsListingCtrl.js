@@ -5,13 +5,13 @@
  * @ngInject
  */
 
-function LocationsListingCtrl($state, $scope) {
+function LocationsListingCtrl($state, $scope, STATE) {
     var self = this;
 
     self.locations = $scope.locations;
 
     self.viewLocationDetails = function(locId) {
-        $state.go('locationDetails', { 'locId': locId });
+        $state.go(STATE.LOCATION_DETAILS, { 'locId': locId });
     };
 
 }

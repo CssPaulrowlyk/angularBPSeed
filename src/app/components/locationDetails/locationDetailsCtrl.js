@@ -5,14 +5,14 @@
  * @constructor
  * @ngInject
  */
-function LocationDetailsCtrl($modal, $state, $scope) {
+function LocationDetailsCtrl($modal, $state, $scope, STATE) {
     var self = this;
 
     self.alerts = [];
     self.location = $scope.location;
 
     self.viewLocations = function() {
-        $state.go('main');
+        $state.go(STATE.MAIN);
     };
 
     /**

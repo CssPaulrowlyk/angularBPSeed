@@ -13,17 +13,26 @@ angular.module('angularBPSeed', [
     require('./pages/locationDetails/locationDetailsCtrl').name,
     require('./services/locationLookupService').name,
     require('./components/appMessages/appMessages').name
-]).config(['$stateProvider', '$urlRouterProvider', 'cfpLoadingBarProvider',
-    function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider) {
+]).constant( 'STATE', {
+    // Use constants instead of using "magic strings". In other words, define a key here, so you don't have to
+    // duplicate the same string value(s) all over your app. For example, to use this, inject it into your
+    // module, then refer to it as STATE.MAIN. This is better than repeating the string "main"
+    // in multiple files. Using a constant, if you want to change the key value, you just change it here in one place
+    // whereas if you use a string like "main" and you change its value, you have to search your app for
+    // every instance of that string.
+    'MAIN': 'main',
+    'LOCATION_DETAILS': 'locationDetails'
+}).config(['$stateProvider', '$urlRouterProvider', 'cfpLoadingBarProvider', 'STATE',
+    function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, STATE) {
         // set loading bar preferences
         cfpLoadingBarProvider.includeSpinner = true;
         // only show the loading bar if the resolve takes more than 1 second. this prevents the user
         // from seeing the loading bar flash on the screen when the resolve completes quickly.
         cfpLoadingBarProvider.latencyThreshold = 1000;
 
-        $urlRouterProvider.otherwise('/main');
-        $stateProvider.state('main', {
-            url: '/main',
+        $urlRouterProvider.otherwise('/' + STATE.MAIN);
+        $stateProvider.state(STATE.MAIN, {
+            url: '/' + STATE.MAIN,
             resolve: {
                 locations: function (locationLookupService) {
                     return  locationLookupService.getLocations();
@@ -35,8 +44,8 @@ angular.module('angularBPSeed', [
                     templateUrl: 'pages/main/main.tpl.html'
                 }
             }
-        }).state('locationDetails', {
-            url: '/locationDetails/{locId}',
+        }).state(STATE.LOCATION_DETAILS, {
+            url: '/' + STATE.LOCATION_DETAILS + '/{locId}',
             resolve: {
                 location: function($stateParams, locationLookupService) {
                     return locationLookupService.getLocationById($stateParams.locId);
@@ -50,15 +59,6 @@ angular.module('angularBPSeed', [
             }
         });
     }])
-    .constant( 'CONSTANTS', {
-        // Use constants instead of using "magic strings". In other words, define a key here, so you don't have to
-        // duplicate string the same string value(s) all over your app. For example, to use this, inject it into your
-        // module, then refer to it as CONSTANTS.MY_KEY. This is better than repeating the string "myValue"
-        // in multiple files. Using a constant, if you want to change the key value, you just change it here in one place
-        // whereas if you use a string like "myValue" and you change its value, you have to search your app for
-        // every instance of that string.
-        'MY_KEY': 'myValue'
-    })
     .run(function ($rootScope, cfpLoadingBar) {
         $rootScope.$on("$stateChangeStart", function () {
             // show the loading bar when we start to change to a new page. This is mostly for states that

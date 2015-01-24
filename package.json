@@ -2,9 +2,9 @@
   "name": "angular-bp-seed",
   "version": "0.1.0",
   "homepage": "",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "6to5ify": "^3.1.2",
     "angular-mocks": "^1.3",
     "connect-nano": "^0.1.3",
     "cookie-parser": "^1.3.2",

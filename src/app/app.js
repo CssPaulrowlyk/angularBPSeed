@@ -5,71 +5,75 @@
  * Angular way. Libraries retrieved via npm (or modules defined within the app) can be defined via 'require'
  */
 angular.module('angularBPSeed', [
-    'ui.router',
+    'ngRoute',
     'ui.bootstrap',
     'templates-app',
     'angular-loading-bar',
     require('./pages/main/mainCtrl').name,
-    require('./pages/locationDetails/locationDetailsCtrl').name,
-    require('./services/locationLookupService').name,
+    require('./pages/currentWx/currentWxCtrl').name,
+    require('./pages/forecast/forecastCtrl').name,
+    require('./services/wxUndergroundService').name,
+    require('./services/currentLocationService').name,
     require('./components/appMessages/appMessages').name
-]).constant( 'STATE', {
+]).constant('PAGE', {
     // Use constants instead of using "magic strings". In other words, define a key here, so you don't have to
     // duplicate the same string value(s) all over your app. For example, to use this, inject it into your
-    // module, then refer to it as STATE.MAIN. This is better than repeating the string "main"
+    // module, then refer to it as PAGE.MAIN. This is better than repeating the string "main"
     // in multiple files. Using a constant, if you want to change the key value, you just change it here in one place
     // whereas if you use a string like "main" and you change its value, you have to search your app for
     // every instance of that string.
-    'MAIN': 'main',
-    'LOCATION_DETAILS': 'locationDetails'
-}).config(['$stateProvider', '$urlRouterProvider', 'cfpLoadingBarProvider', 'STATE',
-    function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, STATE) {
+    'MAIN': '/main',
+    'CURRENT_WEATHER': '/currentWx',
+    'FORECAST': '/forecast'
+}).constant('CONST', {
+    'WX_UNDERGROUND_KEY': '344d3f3c1ee346f7'
+}).config(['$routeProvider', 'cfpLoadingBarProvider', 'PAGE',
+    function ($routeProvider, cfpLoadingBarProvider, PAGE) {
         // set loading bar preferences
         cfpLoadingBarProvider.includeSpinner = true;
         // only show the loading bar if the resolve takes more than 1 second. this prevents the user
         // from seeing the loading bar flash on the screen when the resolve completes quickly.
         cfpLoadingBarProvider.latencyThreshold = 1000;
 
-        $urlRouterProvider.otherwise('/' + STATE.MAIN);
-        $stateProvider.state(STATE.MAIN, {
-            url: '/' + STATE.MAIN,
-            resolve: {
-                locations: function (locationLookupService) {
-                    return  locationLookupService.getLocations();
+        $routeProvider
+            .when('/', {
+                redirectTo: PAGE.MAIN
+            })
+            .when(PAGE.MAIN, {
+                controller: 'MainCtrl as mainCtrl',
+                templateUrl: 'pages/main/main.tpl.html'
+            })
+            .when(PAGE.CURRENT_WEATHER, {
+                controller: 'CurrentWxCtrl as currentWxCtrl',
+                templateUrl: 'pages/currentWx/currentWx.tpl.html',
+                resolve: {
+                    currentWx: function (currentLocationService, wxUndergroundService) {
+                        return wxUndergroundService.getCurrentWx(currentLocationService.getCurrentLocation());
+                    }
                 }
-            },
-            views: {
-                "page": {
-                    controller: 'MainCtrl as mainCtrl',
-                    templateUrl: 'pages/main/main.tpl.html'
+            })
+            .when(PAGE.FORECAST, {
+                controller: 'ForecastCtrl as forecastCtrl',
+                templateUrl: 'pages/forecast/forecast.tpl.html',
+                resolve: {
+                    forecast: function (currentLocationService, wxUndergroundService) {
+                        return wxUndergroundService.getForecast(currentLocationService.getCurrentLocation());
+                    }
                 }
-            }
-        }).state(STATE.LOCATION_DETAILS, {
-            url: '/' + STATE.LOCATION_DETAILS + '/{locId}',
-            resolve: {
-                location: function($stateParams, locationLookupService) {
-                    return locationLookupService.getLocationById($stateParams.locId);
-                }
-            },
-            views: {
-                "page": {
-                    controller: 'LocationDetailsCtrl as locationDetailsCtrl',
-                    templateUrl: 'pages/locationDetails/locationDetails.tpl.html'
-                }
-            }
-        });
+            });
+
     }])
     .run(function ($rootScope, cfpLoadingBar) {
-        $rootScope.$on("$stateChangeStart", function () {
+        $rootScope.$on("$routeChangeStart", function () {
             // show the loading bar when we start to change to a new page. This is mostly for states that
             // perform a resolve() to retrieve data before loading the next state.
             cfpLoadingBar.start();
         });
-        $rootScope.$on("$stateChangeSuccess", function () {
+        $rootScope.$on("$routeChangeSuccess", function () {
             //hide the loading bar
             cfpLoadingBar.complete();
         });
-        $rootScope.$on("$stateChangeError", function () {
+        $rootScope.$on("$routeChangeError", function () {
             //hide the loading bar
             cfpLoadingBar.complete();
         });

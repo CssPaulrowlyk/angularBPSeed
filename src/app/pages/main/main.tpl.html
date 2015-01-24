@@ -1,5 +1,10 @@
-<div class="row">
-    <div class="col-md-3" locations-listing locations="mainCtrl.locations">
-    </div>
-</div>
+<div class="container">
+    <form novalidate>
+        <div class="form-group">
+            <label for="inputZip">Enter a zip code</label>
+            <input type="text" class="form-control" id="inputZip" placeholder="Zip Code" ng-model="mainCtrl.form.zipCode">
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="mainCtrl.submitZipCode()">Submit</button>
+    </form>
 
+</div>

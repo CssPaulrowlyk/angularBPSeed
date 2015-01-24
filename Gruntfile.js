@@ -50,8 +50,10 @@ module.exports = function (grunt) {
                 // A single entry point for our app
                 src: 'src/app/app.js',
                 // Compile to a single file to add a script tag for in your HTML
-                dest: '<%= build_dir %>/src/app.js'
-                //options: ['es6ify']
+                dest: '<%= build_dir %>/src/app.js',
+                options: {
+                    transform: ['6to5ify']
+                }
             },
             //TODO: create a bundle for the test files, so we can run the Jasmine tests!
             test: {
@@ -226,6 +228,7 @@ module.exports = function (grunt) {
                 boss: true,
                 eqnull: true,
                 globalstrict: true,
+                esnext: true,
                 predef: [
                     'angular',
                     'require',
@@ -452,10 +455,11 @@ module.exports = function (grunt) {
      * The `build` task gets your app ready to run for development and testing.
      */
     grunt.registerTask('build', [
-        'clean', 'html2js', 'jshint', 'less:build',
+        //'clean', 'html2js', 'jshint', 'less:build',
+        'clean', 'html2js', 'less:build',
         'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
         //'karmaconfig',
-        'browserify:app', 'ngAnnotate:app', 'copy:build_vendorjs', 'copy:build_vendorcss', 'index:build'
+        'browserify:app','ngAnnotate:app', 'copy:build_vendorjs', 'copy:build_vendorcss', 'index:build'
         //'karma:continuous'
     ]);
 

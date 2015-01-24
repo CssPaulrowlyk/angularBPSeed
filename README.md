@@ -1,20 +1,36 @@
 ## Overview
 This project is yet another Angular Seed/Template project. It follows the best practices defined in my [Angular Best Practices Guide] (https://github.com/jmcunningham/angularjs-styleguide). There is a little more detail about the origins of that guide on my [blog] (http://jmcunningham.net/2014/08/18/yet-another-opinionated-angularjs-best-practices-guide/). While reading about best practices is nice, I think it helps to see how those Best Practices look in a real project. To create this seed, I started by downloading [ngBoilerplate] (https://github.com/ngbp/ngbp). I want to give credit to that project, though I have changed so much that you won't recognize many similarities (some of the build tasks and LESS stuff is still intact from ngBoilerplate).
 
-The app itself is basic and not "pretty". It consists of 2 pages. The first page is a listing of 3 locations. Each location has a button that you can click to go to another page. This second page displays more details on the selected location. Styling is almost non-existent, though there are empty LESS files in place (to let you know where your LESS files should live). The 2nd page also has a button to open a modal, just as an example of how a component (directive) can contain extra functionality (notice that the modal is defined as a subdirectory of the directive, since the modal is meant to be used only by the directive).
+The new version of this seed project is a 3 view SPA. The home view prompts for a zip code. If the zip code is valid,
+you are taken to a view displaying the current conditions for that location. There is also a link to take you to the
+forecast page, that displays a 4 day forecast. Not much has been done in the way of styling, other than to get the data
+on the page in a fairly simple fashion. Weather is provided by [Weather Underground](http://www.wunderground.com). The app contains my key (for now),
+which limits the app to 500 requests per hour.
+
+The app doesn't have much in the way of error handling, as this isn't met to be a full fledged app (yet). Right now, it just
+supports the "happy path", assuming the user enters a valid zip code, goes to the current conditions page, then goes to
+the forecast page.
+
+I've also added the 6to5ify plugin for Browserify. This enable you to use ES6 in this seed project. I've used let and const
+in this app, to prove that 6to5ify is working. I plan to add more ES6 code in the future.
 
 ## Features
 - An example app following many of the best practices from [Angular Best Practices Guide] (https://github.com/jmcunningham/angularjs-styleguide)
+- Uses let and const to prove the app supports ES6 code, via 6to5ify.
+- Compile the html template to javascript, and store them in the cache.
+- Modules based on CommonJS
 - Built-in Express server for serving the app during development.
 - An optional proxy server for CORS functionality. This allows you to serve the app from your local machine, and also make requests to a 3rd party server if needed.
-- Includes services, directives, Angular UI Bootstrap modal, "fake" server call using promises, a loading bar displays during calls to the server.
-- Uses AngularJS, Angular UI Router, Angular UI Bootstrap, Angular Loading Bar, Grunt, Browserify, ngAnnotate, html2js
+- Includes services, directives, a loading bar displays during calls to the server.
+- Uses AngularJS, Angular UI Bootstrap, Angular Loading Bar, Grunt, Browserify, 6to5ify, ngAnnotate, html2js
 
 ## TODO
+- Add more ES6 code
+- Add error handling logic, as there is pretty much none at the moment.
 - Add watchify and rewrite the "delta" grunt task
 - Add unit tests to show how to integrate tests with Browserify
 - Add styling to make the app a little more "pretty"
-- Remove Bower dependency and use npm for all package management
+- Remove Bower dependency and use npm for all package management (undecided on this)
 
 ##Instructions for Setting up and Building This Project
 Note: You already have installed Node.js, a Git client (needed by Bower), Bower, and Grunt cli

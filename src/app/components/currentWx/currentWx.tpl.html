@@ -1,0 +1,46 @@
+<div class="container currentWxBody">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Current Weather in <span class="locName"
+                                                 ng-bind="currentWeatherCtrl.wx.display_location.full"> </span></h3>
+
+                    <div>
+                        <span class="obsTime" ng-bind="currentWeatherCtrl.wx.observation_time"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <img class="currentWxIcon" ng-src="{{currentWeatherCtrl.wx.icon_url}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <span class="currentWxLabel">Temp: </span>
+        </div>
+        <div class="col-sm-4">
+            <span ng-bind="currentWeatherCtrl.wx.temp_f"></span>&nbsp; F
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <span class="currentWxLabel">Rel. Humidity: </span>
+        </div>
+        <div class="col-sm-4">
+            <span ng-bind="currentWeatherCtrl.wx.relative_humidity"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12"><hr></div>
+        <div class="col-md-12"><a href="" ng-click="currentWeatherCtrl.goToForecastPage()">Go To Forecast Page</a></div>
+        <div class="col-md-12"><hr></div>
+        <div class="col-md-12">Weather provided by:</div>
+        <div class="col-sm-12">
+            <a ng-href="{{currentWeatherCtrl.wx.image.link}}" ng-bind="currentWeatherCtrl.wx.image.title"></a>
+        </div>
+    </div>
+</div>

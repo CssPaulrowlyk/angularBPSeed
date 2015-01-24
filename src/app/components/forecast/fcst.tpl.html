@@ -1,0 +1,34 @@
+<div class="container currentWxBody">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Forecast For <span class="locName"
+                                                 ng-bind="fcstCtrl.getLocationName()"> </span></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-repeat="fcstData in fcstCtrl.fcst.txt_forecast.forecastday">
+        <div class="col-md-10">
+            <span class="fcstTitle" ng-bind="fcstData.title"></span>
+        </div>
+        <div class="col-md-10">
+            <img ng-src="{{fcstData.icon_url}}">
+        </div>
+        <div class="col-md-10">
+            <span ng-bind="fcstData.fcttext"></span>
+        </div>
+        <div class="col-md-10">
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12"><a href="" ng-click="fcstCtrl.goToHomePage()">Go To Home Page</a></div>
+        <div class="col-md-12"><hr></div>
+        <div class="col-md-12">Weather provided by:</div>
+        <div class="col-sm-12">
+            <a href="http://www.wunderground.com">Weather Underground</a>
+        </div>
+    </div>
+</div>
